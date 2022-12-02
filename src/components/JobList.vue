@@ -1,7 +1,8 @@
 <template>
   <div class="job-list">
+    <p>Ordenação: {{ordem}}</p>
     <ul>
-      <li v-for="job in jobs" :key="job.id">
+      <li v-for="job in vagasOrdenadas" :key="job.id">
         <h2>{{ job.title }} in {{ job.location }}</h2>
         <div class="salary">
           <p>{{ job.salary }} rupees</p>
@@ -16,14 +17,26 @@
 
 <script lang="ts">
 import Job from "@/types/Job"; //@ é o root do projeto
-import { defineComponent, PropType } from "vue";
+import PropVaga from "@/types/PropVaga";
+import { computed, defineComponent, PropType } from "vue";
 
 export default defineComponent({
   props: {
     jobs: {
       required: true,
       type: Array as PropType<Job[]>
+    },
+    ordem: {
+      required: true,
+      type: String as PropType<PropVaga>
     }
+  },
+  setup(props){
+    const vagasOrdenadas = computed(() => [...props.jobs].sort(
+      (job1: Job, job2: Job) => job1[props.ordem] > job2[props.ordem] ? 1 : -1
+    ));
+
+    return {vagasOrdenadas};
   }
 })
 </script>
