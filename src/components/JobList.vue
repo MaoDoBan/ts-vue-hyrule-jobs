@@ -5,6 +5,7 @@
       <li v-for="job in vagasOrdenadas" :key="job.id">
         <h2>{{ job.title }} in {{ job.location }}</h2>
         <div class="salary">
+          <img src="@/assets/rupee.svg" alt="Coin Icon">
           <p>{{ job.salary }} rupees</p>
         </div>
         <div class="description">
